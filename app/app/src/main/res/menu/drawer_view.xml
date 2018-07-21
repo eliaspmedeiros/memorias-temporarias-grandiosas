@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_black"
+            android:icon="@drawable/ic_black"
+            android:title="@string/black" />
+        <item
+            android:id="@+id/nav_blue"
+            android:icon="@drawable/ic_blue"
+            android:title="@string/blue" />
+        <item
+            android:id="@+id/nav_green"
+            android:icon="@drawable/ic_green"
+            android:title="@string/green" />
+        <item
+            android:id="@+id/nav_red"
+            android:icon="@drawable/ic_red"
+            android:title="@string/red" />
+
+        <item
+            android:id="@+id/nav_white"
+            android:icon="@drawable/ic_white"
+            android:title="@string/white" />
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_fav"
+            android:icon="@drawable/ic_star"
+            android:title="@string/favorites"
+            app:iconTint="@color/accent" />
+    </group>
+</menu>

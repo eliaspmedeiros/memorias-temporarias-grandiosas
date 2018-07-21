@@ -1,8 +1,6 @@
 package com.example.hedo.mtg.adapters;
 
 import android.support.annotation.NonNull;
-import android.support.v7.recyclerview.extensions.ListAdapter;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +19,17 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     private List<Card> mCardList;
-    private Listener listener;
+    private Listener mListener;
 
-    public CardAdapter(List<Card> mCardList, Listener listener) {
-        this.mCardList = mCardList;
-        this.listener = listener;
+    /**
+     * Creates a CardAdapter instance.
+     *
+     * @param cards    Card list.
+     * @param listener CardAdapter Listener.
+     */
+    public CardAdapter(List<Card> cards, Listener listener) {
+        this.mCardList = cards;
+        this.mListener = listener;
     }
 
     @Override
@@ -48,17 +52,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         Picasso.get().load(card.getImageUrl()).into(holder.mImageView);
 
         holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onCardClicked(card);
+            if (mListener != null) {
+                mListener.onCardClicked(card);
             }
         });
     }
 
     public void addMoreCards(List<Card> cards) {
-        int lastItem = mCardList.size();
+        int lastItemPosition = mCardList.size();
         mCardList.addAll(cards);
 
-        notifyItemRangeInserted(lastItem, cards.size());
+        notifyItemRangeInserted(lastItemPosition, cards.size());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,6 +75,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     }
 
     public interface Listener {
+        /**
+         * Method called when a card is clicked.
+         *
+         * @param card Card.
+         */
         void onCardClicked(Card card);
     }
 }

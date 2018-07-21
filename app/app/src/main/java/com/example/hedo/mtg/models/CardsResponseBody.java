@@ -8,6 +8,11 @@ import java.util.List;
 public class CardsResponseBody {
     private List<Card> cards;
 
+    /**
+     * Gets the cards list.
+     *
+     * @return List<Card> cards.
+     */
     public List<Card> getCards() {
         return cards;
     }

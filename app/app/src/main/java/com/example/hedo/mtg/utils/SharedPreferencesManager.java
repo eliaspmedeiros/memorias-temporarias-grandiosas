@@ -16,7 +16,7 @@ public class SharedPreferencesManager {
     /**
      * Gets its SharedPreferences instance from a given context.
      *
-     * @param Context context.
+     * @param context Context.
      */
     public static void bind(Context context) {
         sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, MODE_PRIVATE);

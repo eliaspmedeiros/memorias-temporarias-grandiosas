@@ -31,14 +31,21 @@ import retrofit2.Response;
 /**
  * @author hedo
  */
-public class ColorFragment extends Fragment implements Callback<CardsResponseBody>, CardAdapter.Listener {
+public class ColorFragment extends Fragment
+        implements Callback<CardsResponseBody>, CardAdapter.Listener {
+
     private static final String COLOR_KEY = "COLOR_KEY";
 
     private Color color;
     private RecyclerView rvCards;
     private CardAdapter adapter;
-    private InfiniteScrollListener listener;
 
+    /**
+     * Creates a new ColorFragment instance.
+     *
+     * @param color Color.
+     * @return ColorFragment instance.
+     */
     public static ColorFragment newInstance(Color color) {
         Bundle args = new Bundle();
         args.putString(COLOR_KEY, color.name());
@@ -83,6 +90,24 @@ public class ColorFragment extends Fragment implements Callback<CardsResponseBod
         }
     }
 
+    @Override
+    public void onFailure(Call<CardsResponseBody> call, Throwable t) {
+        Log.e("ColorFragment",
+                "An error occurred while fetching the cards: " + t.getLocalizedMessage());
+    }
+
+    @Override
+    public void onCardClicked(Card card) {
+        Intent intent = new Intent(getContext(), CardActivity.class);
+        intent.putExtra(CardActivity.CARD_KEY, card);
+
+        startActivity(intent);
+    }
+
+    private void onLoadMore(int page) {
+        fetchData(page);
+    }
+
     private void fetchFavorites() {
         displayCards(FavoritesManager.getFavoriteCards(), false);
     }
@@ -92,10 +117,6 @@ public class ColorFragment extends Fragment implements Callback<CardsResponseBod
         MagicService.getInstance().getCards(color, page, MagicService.PAGE_SIZE).enqueue(this);
     }
 
-    private void onLoadMore(int page, int totalItemsCount, RecyclerView recyclerView) {
-        fetchData(page);
-    }
-
     private void displayCards(List<Card> cards, boolean addInfiniteScrollListener) {
         if (adapter == null) {
             adapter = new CardAdapter(cards, this);
@@ -103,7 +124,7 @@ public class ColorFragment extends Fragment implements Callback<CardsResponseBod
             rvCards.setLayoutManager(layoutManager);
 
             if (addInfiniteScrollListener) {
-                listener = new InfiniteScrollListener(layoutManager);
+                InfiniteScrollListener listener = new InfiniteScrollListener(layoutManager);
                 listener.setOnLoadMoreListener(this::onLoadMore);
 
                 rvCards.addOnScrollListener(listener);
@@ -113,18 +134,5 @@ public class ColorFragment extends Fragment implements Callback<CardsResponseBod
         } else {
             adapter.addMoreCards(cards);
         }
-    }
-
-    @Override
-    public void onFailure(Call<CardsResponseBody> call, Throwable t) {
-        Log.e("ColorFragment", "An error occurred while fetching the cards: " + t.getLocalizedMessage());
-    }
-
-    @Override
-    public void onCardClicked(Card card) {
-        Intent intent = new Intent(getContext(), CardActivity.class);
-        intent.putExtra(CardActivity.CARD_KEY, card);
-
-        startActivity(intent);
     }
 }

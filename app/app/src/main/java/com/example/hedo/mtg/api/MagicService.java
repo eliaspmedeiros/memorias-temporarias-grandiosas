@@ -8,9 +8,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class MagicService {
     public static final int PAGE_SIZE = 40;
-    private static MagicAPI instance;
+    private static final String BASE_URL = "https://api.magicthegathering.io/v1/";
 
-    private final String BASE_URL = "https://api.magicthegathering.io/v1/";
+    private static MagicAPI instance;
 
     private MagicService() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -22,11 +22,16 @@ public class MagicService {
     }
 
 
+    /**
+     * Gets a MagicAPI instance.
+     *
+     * @return instance.
+     */
     public static MagicAPI getInstance() {
         if (instance == null) {
             new MagicService();
         }
-        
+
         return instance;
     }
 }

@@ -13,5 +13,7 @@ import retrofit2.http.Query;
 public interface MagicAPI {
 
     @GET("cards")
-    Call<CardsResponseBody> getCards(@Query("colors") String colors, @Query("page") int page, @Query("pageSize") int pageSize);
+    Call<CardsResponseBody> getCards(@Query("colors") String colors,
+                                     @Query("page") int page,
+                                     @Query("pageSize") int pageSize);
 }

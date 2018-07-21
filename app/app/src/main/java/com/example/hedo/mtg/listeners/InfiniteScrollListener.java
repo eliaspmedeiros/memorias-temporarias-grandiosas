@@ -96,19 +96,17 @@ public class InfiniteScrollListener extends RecyclerView.OnScrollListener {
         // threshold should reflect how many total columns there are too
         if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount && onLoadMoreListener != null) {
             currentPage++;
-            onLoadMoreListener.onLoadMore(currentPage, totalItemCount, view);
+            onLoadMoreListener.onLoadMore(currentPage);
             loading = true;
         }
     }
 
-    // Call this method whenever performing new searches
-    public void resetState() {
-        this.currentPage = this.startingPageIndex;
-        this.previousTotalItemCount = 0;
-        this.loading = true;
-    }
-
     public interface OnLoadMore {
-        void onLoadMore(int page, int totalItemsCount, RecyclerView recyclerView);
+        /**
+         * Method called when there's need to load more items.
+         *
+         * @param page next page.
+         */
+        void onLoadMore(int page);
     }
 }

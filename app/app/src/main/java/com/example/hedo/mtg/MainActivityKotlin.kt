@@ -28,6 +28,7 @@ class MainActivityKotlin : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         configureToolbar()
         configureNavigationDrawer()
+        show(BLACK_TAG)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

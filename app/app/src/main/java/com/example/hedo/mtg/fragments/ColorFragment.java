@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hedo.mtg.CardActivity;
+import com.example.hedo.mtg.CardActivityKotlin;
 import com.example.hedo.mtg.R;
 import com.example.hedo.mtg.adapters.CardAdapter;
 import com.example.hedo.mtg.api.MagicService;
@@ -98,7 +99,7 @@ public class ColorFragment extends Fragment
 
     @Override
     public void onCardClicked(Card card) {
-        Intent intent = new Intent(getContext(), CardActivity.class);
+        Intent intent = new Intent(getContext(), CardActivityKotlin.class);
         intent.putExtra(CardActivity.CARD_KEY, card);
 
         startActivity(intent);

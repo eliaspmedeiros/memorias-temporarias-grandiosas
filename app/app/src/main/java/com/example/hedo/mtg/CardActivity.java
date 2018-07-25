@@ -18,10 +18,10 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
     public static final String CARD_KEY = "CARD_KEY";
 
     private TextView tvName, tvManaCost, tvType, tvRarity, tvArtist, tvStats, tvCardText, tvFlavor;
-    private ImageView ivCard;
+    protected ImageView ivCard;
     private FloatingActionButton fabFav;
     private boolean isFavorite;
-    private Card card;
+    protected Card card;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
